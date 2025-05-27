@@ -98,6 +98,44 @@ function renderCarList(searchTerm = "") {
     carListDiv.innerHTML = "<p>No results for the specified Make.</p>";
   }
 }
+
+function selectCar(carId) {
+  selectedCar = cars.find((car) => car.id === carId);
+
+  console.log("Selected car:", selectedCar);
+  document.getElementById("car-list").style.display = "none";
+  document.getElementById("order-form").style.display = "block";
+  document.getElementById("selected-car-info").innerHTML = `
+    <img src="${selectedCar.Image}" 
+    alt="${selectedCar.Make} ${selectedCar.Model}" width="300">
+    <h3>${selectedCar.Make} ${selectedCar.Model}</h3>
+    <p>Price: ${selectedCar.Price} €</p>
+  `;
+}
+
+renderCarList();
+
+const deliverySelect = document.getElementById("delivery-date");
+deliverySelect.innerHTML = "";
+
+const today = new Date();
+
+for (let i = 0; i <= 14; i++) {
+  const deliveryDate = new Date(today);
+  deliveryDate.setDate(today.getDate() + i);
+
+  const day = deliveryDate.getDate().toString().padStart(2, "0");
+  const month = (deliveryDate.getMonth() + 1).toString().padStart(2, "0");
+  const Year = deliveryDate.getFullYear();
+  const formattedDate = `${day}.${month}.${Year}`;
+
+  const option = document.createElement("option");
+  option.value = formattedDate;
+  option.textContent = formattedDate;
+
+  deliverySelect.appendChild(option);
+}
+
 document.getElementById("search-input").addEventListener("input", function (e) {
   const value = e.target.value;
   renderCarList(value);
