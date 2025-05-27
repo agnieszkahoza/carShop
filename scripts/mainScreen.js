@@ -68,3 +68,8 @@ const cars = [
     "https://images.pexels.com/photos/17121437/pexels-photo-17121437/free-photo-of-racing-fiat-multipla-on-grid.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
   },
 ];
+
+function renderCarList(searchTerm = "") {
+  const carListDiv = document.getElementById("car-list");
+  carListDiv.innerHTML = "";
+
