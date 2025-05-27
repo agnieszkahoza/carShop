@@ -8,6 +8,25 @@
     <script src="scripts/mainScreen.js" defer></script>
 </head>
 <body>
-    <h1>Hello world!</h1>
+  <input type="text" id="search-input" placeholder="Search" />
+    <div id="car-list"></div>
+    <div id="order-form" style="display: none;">
+        <h2>Purchase form</h2>
+        <div id="selected-car-info"></div>
+        <form>
+          <label>Payment:</label><br>
+          <input type="radio" name="payment" value="leasing"> Finance
+          <input type="radio" name="payment" value="cash"> Cash
+          <br><br>
+    
+          <label>Name:</label><br>
+          <input type="text" id="owner-name" required>
+          <br><br>
+    
+          <label>Delivery date:</label><br>
+          <select id="delivery-date" required></select>
+          <br><br>
+        </form>
+      </div>
 </body>
 </html>
