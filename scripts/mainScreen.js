@@ -73,3 +73,28 @@ function renderCarList(searchTerm = "") {
   const carListDiv = document.getElementById("car-list");
   carListDiv.innerHTML = "";
 
+  const filteredCars = cars.filter(car =>
+    car.Make.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  filteredCars.forEach((car) => {
+    const carCard = document.createElement("div");
+    carCard.classList.add("car-card");
+
+    carCard.innerHTML = `
+      <img src="${car.Image}" alt="${car.Make} ${car.Model}" width="300">
+      <h2>${car.Make} ${car.Model}</h2>
+      <p>Year: ${car.Year}</p>
+      <p>Mileage: ${car.Mileage}</p>
+      <p>Power: ${car.Power}</p>
+      <p>Price: ${car.Price} €</p>
+      <button onclick="selectCar(${car.id})">Select</button>
+    `;
+
+    carListDiv.appendChild(carCard);
+  });
+
+  if (filteredCars.length === 0) {
+    carListDiv.innerHTML = "<p>No results for the specified Make.</p>";
+  }
+}
