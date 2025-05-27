@@ -98,3 +98,7 @@ function renderCarList(searchTerm = "") {
     carListDiv.innerHTML = "<p>No results for the specified Make.</p>";
   }
 }
+document.getElementById("search-input").addEventListener("input", function (e) {
+  const value = e.target.value;
+  renderCarList(value);
+});
