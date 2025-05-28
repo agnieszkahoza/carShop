@@ -171,6 +171,34 @@ function renderAccessories() {
     });
 }
 
+function addAccessoriesListeners() {
+    const checkboxes = document.querySelectorAll('.accessory-checkbox');
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', updateTotalPrice);
+    });
+}
+
+function updateTotalPrice() {
+    const basePrice = selectedCar.Price;
+    let accessoriesPrice = 0;
+
+    const checkboxes = document.querySelectorAll('.accessory-checkbox');
+
+    checkboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            const accId = parseInt(checkbox.value);
+            const acc = accessories.find(a => a.id === accId);
+            accessoriesPrice += acc.price;
+        }
+    });
+
+    const total = basePrice + accessoriesPrice;
+
+    document.getElementById('total-price').innerText = `Total price: ${total} €`;
+}
+
+
 document.getElementById("search-input").addEventListener("input", function (e) {
     const value = e.target.value;
     renderCarList(value);
