@@ -138,8 +138,6 @@ function selectCar(carId) {
     );
 }
 
-renderCarList();
-
 const deliverySelect = document.getElementById("delivery-date");
 deliverySelect.innerHTML = "";
 
@@ -314,6 +312,8 @@ function loadFormFromLocalStorage() {
 
     updateTotalPrice();
 }
+
+renderCarList();
 
 document.getElementById("search-input").addEventListener("input", function (e) {
     const value = e.target.value;
