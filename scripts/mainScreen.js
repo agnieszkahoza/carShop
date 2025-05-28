@@ -238,11 +238,11 @@ function handlePurchase(event) {
             accessoriesPrice += acc.price;
         }
     });
-    const total = selectedCar.price + accessoriesPrice;
+    const total = selectedCar.Price + accessoriesPrice;
 
     const summaryHTML = `
-    <img src="${selectedCar.image}" alt="${selectedCar.make} ${selectedCar.model}" width="300">
-    <h3>${selectedCar.make} ${selectedCar.model}</h3>
+    <img src="${selectedCar.Image}" alt="${selectedCar.Make} ${selectedCar.Model}" width="300">
+    <h3>${selectedCar.Make} ${selectedCar.Model}</h3>
     <p>Payment method: ${paymentMethod.value}</p>
     <p>Total price: ${total}€</p>
   `;
@@ -257,6 +257,17 @@ function handlePurchase(event) {
 
 function showError(msg) {
     document.getElementById('form-error').innerText = msg;
+}
+
+function backToCarList() {
+    document.getElementById("order-form").style.display = "none";
+    document.getElementById("car-list").style.display = "block";
+}
+
+function restartApp() {
+    document.getElementById("summary").style.display = "none";
+    document.getElementById("car-list").style.display = "block";
+    renderCarList();
 }
 
 function saveFormToLocalStorage() {

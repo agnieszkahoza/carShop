@@ -15,7 +15,8 @@
     <div id="order-form" style="display: none;">
         <h2>Purchase form</h2>
         <div id="selected-car-info"></div>
-        <form>
+
+        <form onsubmit="handlePurchase(event)">
             <label>Payment:</label><br>
             <input type="radio" name="payment" value="leasing"> Finance
             <input type="radio" name="payment" value="cash"> Cash
@@ -35,9 +36,15 @@
             <p id="total-price">Total price: </p>
 
             <button type="submit">Buy</button>
+            <button type="button" onclick="backToCarList()">Back</button>
 
             <p id="form-error" style="color: red;"></p>
         </form>
+    </div>
+    <div id="summary" style="display: none;">
+        <h2>Thank you for purchasing!</h2>
+        <div id="summary-content"></div>
+        <button onclick="restartApp()">Back</button>
     </div>
 </body>
 
