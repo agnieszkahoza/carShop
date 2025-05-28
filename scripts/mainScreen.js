@@ -198,6 +198,55 @@ function updateTotalPrice() {
     document.getElementById('total-price').innerText = `Total price: ${total} €`;
 }
 
+function handlePurchase(event) {
+    event.preventDefault();
+
+    const fullName = document.getElementById('owner-name').value.trim();
+    const deliveryDate = document.getElementById('delivery-date').value;
+    const paymentMethod = document.querySelector('input[name="payment"]:checked');
+
+    if (!fullName || !deliveryDate || !paymentMethod) {
+        showError("Please fill in all fields to proceed.");
+        return;
+    }
+
+    const nameParts = fullName.split(' ');
+    if (nameParts.length !== 2) {
+        showError("The name and surname should contain exactly two words.");
+        return;
+    }
+
+    showError("");
+
+
+    let accessoriesPrice = 0;
+    document.querySelectorAll('.accessory-checkbox').forEach(cb => {
+        if (cb.checked) {
+            const accId = parseInt(cb.value);
+            const acc = accessories.find(a => a.id === accId);
+            accessoriesPrice += acc.price;
+        }
+    });
+    const total = selectedCar.price + accessoriesPrice;
+
+    const summaryHTML = `
+    <img src="${selectedCar.image}" alt="${selectedCar.make} ${selectedCar.model}" width="300">
+    <h3>${selectedCar.make} ${selectedCar.model}</h3>
+    <p>Payment method: ${paymentMethod.value}</p>
+    <p>Total price: ${total}€</p>
+  `;
+
+    document.getElementById("order-form").style.display = "none";
+    document.getElementById("summary").style.display = "block";
+    document.getElementById("summary-content").innerHTML = summaryHTML;
+
+    localStorage.removeItem('orderData');
+
+}
+
+function showError(msg) {
+    document.getElementById('form-error').innerText = msg;
+}
 
 document.getElementById("search-input").addEventListener("input", function (e) {
     const value = e.target.value;
