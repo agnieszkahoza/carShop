@@ -124,6 +124,18 @@ function selectCar(carId) {
   `;
     renderAccessories();
     addAccessoriesListeners();
+    loadFormFromLocalStorage();
+
+    document.getElementById('owner-name').addEventListener('input', saveFormToLocalStorage);
+    document.getElementById('delivery-date').addEventListener('change', saveFormToLocalStorage);
+
+    document.querySelectorAll('input[name="payment"]').forEach(radio =>
+        radio.addEventListener('change', saveFormToLocalStorage)
+    );
+
+    document.querySelectorAll('.accessory-checkbox').forEach(checkbox =>
+        checkbox.addEventListener('change', saveFormToLocalStorage)
+    );
 }
 
 renderCarList();
@@ -218,7 +230,6 @@ function handlePurchase(event) {
 
     showError("");
 
-
     let accessoriesPrice = 0;
     document.querySelectorAll('.accessory-checkbox').forEach(cb => {
         if (cb.checked) {
@@ -246,6 +257,51 @@ function handlePurchase(event) {
 
 function showError(msg) {
     document.getElementById('form-error').innerText = msg;
+}
+
+function saveFormToLocalStorage() {
+    const fullName = document.getElementById('owner-name').value;
+    const deliveryDate = document.getElementById('delivery-date').value;
+    const paymentMethod = document.querySelector('input[name="payment"]:checked')?.value;
+
+    const selectedAccessories = [];
+    const checkboxes = document.querySelectorAll('.accessory-checkbox');
+    checkboxes.forEach(checkbox => {
+        if (checkbox.checked) selectedAccessories.push(parseInt(checkbox.value));
+    });
+
+    const data = {
+        fullName,
+        deliveryDate,
+        paymentMethod,
+        accessories: selectedAccessories
+    };
+
+    localStorage.setItem('orderData', JSON.stringify(data));
+}
+
+function loadFormFromLocalStorage() {
+    const saved = localStorage.getItem('orderData');
+    if (!saved) return;
+
+    const data = JSON.parse(saved);
+
+    document.getElementById('owner-name').value = data.fullName || "";
+    document.getElementById('delivery-date').value = data.deliveryDate || "";
+
+    if (data.paymentMethod) {
+        const radio = document.querySelector(`input[name="payment"][value="${data.paymentMethod}"]`);
+        if (radio) radio.checked = true;
+    }
+
+    if (Array.isArray(data.accessories)) {
+        data.accessories.forEach(id => {
+            const checkbox = document.getElementById(`acc-${id}`);
+            if (checkbox) checkbox.checked = true;
+        });
+    }
+
+    updateTotalPrice();
 }
 
 document.getElementById("search-input").addEventListener("input", function (e) {
