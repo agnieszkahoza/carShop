@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,26 +8,32 @@
     <link rel="stylesheet" href="styles/mainScreen.css">
     <script src="scripts/mainScreen.js" defer></script>
 </head>
+
 <body>
-  <input type="text" id="search-input" placeholder="Search" />
+    <input type="text" id="search-input" placeholder="Search" />
     <div id="car-list"></div>
     <div id="order-form" style="display: none;">
         <h2>Purchase form</h2>
         <div id="selected-car-info"></div>
         <form>
-          <label>Payment:</label><br>
-          <input type="radio" name="payment" value="leasing"> Finance
-          <input type="radio" name="payment" value="cash"> Cash
-          <br><br>
-    
-          <label>Name:</label><br>
-          <input type="text" id="owner-name" required>
-          <br><br>
-    
-          <label>Delivery date:</label><br>
-          <select id="delivery-date" required></select>
-          <br><br>
+            <label>Payment:</label><br>
+            <input type="radio" name="payment" value="leasing"> Finance
+            <input type="radio" name="payment" value="cash"> Cash
+            <br><br>
+
+            <label>Full Name:</label><br>
+            <input type="text" id="owner-name" required>
+            <br><br>
+
+            <label>Delivery date:</label><br>
+            <select id="delivery-date" required></select>
+            <br><br>
+
+            <label>Select accessories:</label><br>
+            <div id="accessories-list"></div>
+
         </form>
-      </div>
+    </div>
 </body>
+
 </html>
