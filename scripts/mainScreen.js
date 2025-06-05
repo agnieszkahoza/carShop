@@ -94,12 +94,14 @@ function renderCarList(searchTerm = "") {
 
         carCard.innerHTML = `
       <img src="${car.Image}" alt="${car.Make} ${car.Model}" width="300">
-      <h2>${car.Make} ${car.Model}</h2>
-      <p>Year: ${car.Year}</p>
-      <p>Mileage: ${car.Mileage}</p>
-      <p>Power: ${car.Power}</p>
-      <p>Price: ${car.Price} €</p>
+  <h2>${car.Make} ${car.Model}</h2>
+  <p><img src="icons/calendar.svg" alt="Year" class="icon" /> ${car.Year}</p>
+  <p><img src="icons/road.svg" alt="Mileage" class="icon" /> ${car.Mileage}</p>
+  <p><img src="icons/speed.svg" alt="Power" class="icon" /> ${car.Power}</p>
+  <div class="car-card-footer">
+      <strong class="price">${car.Price} €</strong>
       <button onclick="selectCar(${car.id})">Select</button>
+  </div>
     `;
 
         carListDiv.appendChild(carCard);
@@ -259,7 +261,10 @@ function showError(msg) {
 
 function backToCarList() {
     document.getElementById("order-form").style.display = "none";
-    document.getElementById("car-list").style.display = "block";
+    document.getElementById("summary").style.display = "none";
+    const carList = document.getElementById("car-list");
+    carList.style.display = "flex";
+    renderCarList();
 }
 
 function restartApp() {
